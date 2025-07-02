@@ -461,37 +461,92 @@
 <h1>Encoder</h1>
 <h2 id="1-将单词转换为-数字——word-embedding">1.将单词转换为 数字——word embedding</h2>
 <ul>
-<li>token的概念  
+<li>token的概念  <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701193240.png"
+                      class="" title="Pasted image 20250701193240.png"
+                >
 </li>
-<li>单词的数字化（每个数字都是从某种维度上描述的空间位置，单词的联系越近，其距离越小）  
-（在该例子中，一个单词四维向量来表示）  
+<li>单词的数字化（每个数字都是从某种维度上描述的空间位置，单词的联系越近，其距离越小）  <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701193644.png"
+                      class="" title="Pasted image 20250701193644.png"
+                >
+（在该例子中，一个单词四维向量来表示）  <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701195148.png"
+                      class="" title="Pasted image 20250701195148.png"
+                >
 </li>
 </ul>
 <h2 id="2-融合单词的顺序-positional-Encoding-位置编码">2.融合单词的顺序  positional Encoding(位置编码)</h2>
 <h3 id="一种主要的编码方法">一种主要的编码方法</h3>
 <ul>
-<li>如图 这里有四个正余弦曲线，每一个词的x（第几个）相同，用这个x在正余弦上取到四个不同的y值，这个y值叫 positional encoding  与 单词的 word enbeddings相加得到 整个句子的  
-  
+<li>如图 这里有四个正余弦曲线，每一个词的x（第几个）相同，用这个x在正余弦上取到四个不同的y值，这个y值叫 positional encoding  与 单词的 word enbeddings相加得到 整个句子的  <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701195238.png"
+                      class="" title="Pasted image 20250701195238.png"
+                >
+  <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701195554.png"
+                      class="" title="Pasted image 20250701195554.png"
+                >
 </li>
 </ul>
 <h2 id="3-自注意力机制（self-attention）——计算句子（输入）中每个单词之间的关联程度">3.自注意力机制（self-attention）——计算句子（输入）中每个单词之间的关联程度</h2>
 <ul>
-<li>如下图中 it应该与 pizza关联 
- 
- 
+<li>如下图中 it应该与 pizza关联 <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701200250.png"
+                      class="" title="Pasted image 20250701200250.png"
+                >
+ <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701200314.png"
+                      class="" title="Pasted image 20250701200314.png"
+                >
+ <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701204332.png"
+                      class="" title="Pasted image 20250701204332.png"
+                >
 </li>
 </ul>
 <h3 id="计算过程：">计算过程：</h3>
 <h4 id="1-Query-key-的计算">1.Query  key 的计算</h4>
 <p>对于要查询的词求一个query，然后对于所有词都求一个key</p>
-  
+  <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701205025.png"
+                      class="" title="Pasted image 20250701205025.png"
+                >
 <h3 id="2-相似度计算">2 相似度计算</h3>
 <p>query 点乘 key得到要查询的词和自己以及其他词的相似度（这里去查看余弦相似度，也可以用其他方式算相似度）</p>
-  
+  <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701205234.png"
+                      class="" title="Pasted image 20250701205234.png"
+                >
 <h4 id="3-计算各单词-包含本身-所占注意力的权重">3.计算各单词(包含本身)所占注意力的权重</h4>
 <ul>
 <li>计算目前单词与输入的句子中的各个单词（包含自身）的 percentage(此处是encoder，算的是输入的，后面的decoder也是这个过程，只不过算的是输出的）</li>
-<li>将相似度用softmax转一下（输出为0-1范围） ，作为 对当前单词进行编码时 所有单词占的权重  
+<li>将相似度用softmax转一下（输出为0-1范围） ，作为 对当前单词进行编码时 所有单词占的权重  <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701205400.png"
+                      class="" title="Pasted image 20250701205400.png"
+                >
 </li>
 </ul>
 <h4 id="4-计算单词的注意力">4.计算单词的注意力</h4>
@@ -499,13 +554,23 @@
 <li>
 <p>计算<br>
 给输入的句子中的所有词搞一个新变换得到value ，单词的value乘各自的注意力权重 ，得到目前单词的自注意力值（图中算的是lets’s go 这个句子 中 lets’s 的自注意力值，2.5 -2.1）</p>
-  
+  <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701210014.png"
+                      class="" title="Pasted image 20250701210014.png"
+                >
 </li>
 <li>
 <p>迭代<br>
 计算go（其他单词）的时候 只需要计算一下 go（其他单词）的query 不用再计算key，然后用query 点乘 key得到相似度<br>
 然后用各个单词的value 乘 softmax(相似度)的值   计算出 go（下一个单词）的自注意力编码</p>
-  
+  <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701210420.png"
+                      class="" title="Pasted image 20250701210420.png"
+                >
 <p><strong>注意：</strong></p>
 </li>
 <li>
@@ -513,12 +578,22 @@
 </li>
 <li>
 <p>因为计算每个单词的qky时用的权重都一样，所以对于不同单词 其q，k和v计算可以是并行的。（但是每个单词（token）的自注意力值需要用到自己的Q和其他所有的v 只能挨个计算，所以token是逐个生成的）</p>
-  
+  <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701210848.png"
+                      class="" title="Pasted image 20250701210848.png"
+                >
 </li>
 </ul>
 <h4 id="5-残差链接">5. 残差链接</h4>
 <p>得到自注意力值后 建立残差链接</p>
-  
+  <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701213152.png"
+                      class="" title="Pasted image 20250701213152.png"
+                >
 <h4 id="6-问题-拓展">6.问题 &amp; 拓展</h4>
 <p>1.为什么不直接使用positional encoding来代表单词，而是经过qkv之后得到的self-values来代表？（原视频中好像是这样表述的，我不明白为什么问这个，可能是self-attention values与qkv中的v相同？）</p>
 <ul>
@@ -527,56 +602,126 @@
 <em>不过我很好奇,为什么引入一个v来计算 self-attentions 而不是用 positional encoding，v和self-attention values一定相同吗</em></li>
 <li>v与self-attention values 不同 v是构造的比较符合实际语义特征的编码</li>
 <li>q是为了定位关注点引入的</li>
-<li>key是为了提供可匹配的语义特征
+<li>key是为了提供可匹配的语义特征<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Screenshot_20250702_005128(1).jpg"
+                      class="" title="Screenshot_20250702_005128(1).jpg"
+                >
 </li>
 </ul>
 <ol start="2">
 <li>多头注意力机制<br>
-采用不同的qkv计算方式（计算qkv时的权重不一样） 
+采用不同的qkv计算方式（计算qkv时的权重不一样） <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701212119.png"
+                      class="" title="Pasted image 20250701212119.png"
+                >
 </li>
 <li>交叉注意力机制（与自注意力相对，自注意力qkv都来自于同一输入)<br>
 Q来自 Decoder kv来自于encoder 用于对其跨语言信息</li>
-<li>结构 
+<li>结构 <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701221308.png"
+                      class="" title="Pasted image 20250701221308.png"
+                >
 </li>
 </ol>
 <h1>Decoder</h1>
 <h2 id="1-word-embedding">1.word embedding</h2>
 <p>首先对 要输出的单词进行word embedding   从EOS开始（这是常见的初始化decode encodeed inputs 进程的方式，有时也有人用 SOS（start of sequence)来初始化这个过程）</p>
-  
+  <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701221619.png"
+                      class="" title="Pasted image 20250701221619.png"
+                >
 <h2 id="2-positional-encoding-用和之前一样的cos-sin函数">2.positional encoding(用和之前一样的cos sin函数)</h2>
-  
+  <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701222217.png"
+                      class="" title="Pasted image 20250701222217.png"
+                >
 <h2 id="3-计算self-attention-（和之前类似，但是weights不同）">3.计算self attention （和之前类似，但是weights不同）</h2>
-  
+  <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701222610.png"
+                      class="" title="Pasted image 20250701222610.png"
+                >
 <h2 id="4-建立输出和输出之间的注意力机制（encoder-decoder-attention">4.建立输出和输出之间的注意力机制（encoder-decoder attention)</h2>
 <ul>
-<li>建立原因：decoder要抓住关键词  
-  
+<li>建立原因：decoder要抓住关键词  <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701222906.png"
+                      class="" title="Pasted image 20250701222906.png"
+                >
+  <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701223048.png"
+                      class="" title="Pasted image 20250701223048.png"
+                >
 </li>
 </ul>
 <h4 id="计算过程（用另一套权重）">计算过程（用另一套权重）</h4>
 <p>1.对decoder的内容（此处为EOS）求query，然后与encoder的输出 点乘，<br>
-</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701223218.png"
+                      class="" title="Pasted image 20250701223218.png"
+                ></p>
 <ol start="2">
 <li>
 <p>得到 每个输入的单词在预测输出的单词时 的贡献度（percentage）</p>
- 
+ <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701223505.png"
+                      class="" title="Pasted image 20250701223505.png"
+                >
 </li>
 <li>
 <p>再进一步得到 encoder-decoder attention的值（就是每个词的value x 占比然后相加，<br>
 只是针对某一个词的）</p>
- 
+ <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701223736.png"
+                      class="" title="Pasted image 20250701223736.png"
+                >
 </li>
 <li>
 <p>将计算出的 encoder-decoder attention 的值 引入残差链接</p>
- 
+ <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701224309.png"
+                      class="" title="Pasted image 20250701224309.png"
+                >
 </li>
 <li>
 <p>残差链接之后的数值 放入全连接层</p>
- 
+ <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701224432.png"
+                      class="" title="Pasted image 20250701224432.png"
+                >
 </li>
 <li>
 <p>计算 每个单词的概率（将1 decoder的 residual connection输入全连接层 计算出四个值，然后丢进softmax，得到对应单词的概率 输出概率最大的单词  （vamos一个词就是 let’s go的意思））</p>
- 
+ <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701224636.png"
+                      class="" title="Pasted image 20250701224636.png"
+                >
 </li>
 </ol>
 <pre><code>然后对于 输出的 vamos 继续输入decoder,重复以上过程（
@@ -592,12 +737,22 @@ Q来自 Decoder kv来自于encoder 用于对其跨语言信息</li>
 </blockquote>
 <h4 id="结束阶段（下一步）">结束阶段（下一步）</h4>
 <p><mark style="font-size: 24px; background-color: #fff88f; color: black">但是decoder还没有停止 因为其还没有输出 EOS</mark></p>
-  
+  <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701224836.png"
+                      class="" title="Pasted image 20250701224836.png"
+                >
 <p>继续执行（将上一步得到的输出 vamos 输入decoder）</p>
 <ol>
 <li>
 <p>将 vamos输入decoder的 embedding 层</p>
- 
+ <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701225300.png"
+                      class="" title="Pasted image 20250701225300.png"
+                >
 </li>
 <li>
 <p>得到word embedding for vamos</p>
@@ -607,45 +762,115 @@ Q来自 Decoder kv来自于encoder 用于对其跨语言信息</li>
 </li>
 <li>
 <p>计算 vamos在输出句子中的自注意力</p>
-
-
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701225459.png"
+                      class="" title="Pasted image 20250701225459.png"
+                >
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701225724.png"
+                      class="" title="Pasted image 20250701225724.png"
+                >
 </li>
 <li>
 <p>添加 残差链接（计算后得到 vamos 的self-attention）</p>
- 
+ <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701230151.png"
+                      class="" title="Pasted image 20250701230151.png"
+                >
 </li>
 <li>
 <p>计算 encoder-decoder attention</p>
- 
- 
+ <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701230426.png"
+                      class="" title="Pasted image 20250701230426.png"
+                >
+ <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701230701.png"
+                      class="" title="Pasted image 20250701230701.png"
+                >
 </li>
 <li>
 <p>继续建立残差链接（2.6  1.2 与 -1.2 5.5 加起来 得到 1.4 6.7）</p>
- 
+ <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701230603.png"
+                      class="" title="Pasted image 20250701230603.png"
+                >
 </li>
 <li>
 <p>将得到值 输入全连接 层 得到预测的词</p>
- 
+ <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701230931.png"
+                      class="" title="Pasted image 20250701230931.png"
+                >
 </li>
 </ol>
 <h2 id="总结">总结</h2>
 <ul>
-<li>word embedding 将单词转变为数字  
+<li>word embedding 将单词转变为数字  <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701231513.png"
+                      class="" title="Pasted image 20250701231513.png"
+                >
 </li>
-<li>positionanl encoding 追踪单词顺序  
+<li>positionanl encoding 追踪单词顺序  <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701231640.png"
+                      class="" title="Pasted image 20250701231640.png"
+                >
 </li>
-<li>自注意力机制 追踪输入或输出的句子中 单词之间的联系  
+<li>自注意力机制 追踪输入或输出的句子中 单词之间的联系  <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701231733.png"
+                      class="" title="Pasted image 20250701231733.png"
+                >
 </li>
-<li>encoder-decoder 用于追踪 输入与输出之间的关系，来确保重要单词不丢失  
+<li>encoder-decoder 用于追踪 输入与输出之间的关系，来确保重要单词不丢失  <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701231803.png"
+                      class="" title="Pasted image 20250701231803.png"
+                >
 </li>
-<li>残差链接 让每个单元专注于一块的问题  
+<li>残差链接 让每个单元专注于一块的问题  <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701231919.png"
+                      class="" title="Pasted image 20250701231919.png"
+                >
 </li>
 </ul>
 <h2 id="补充">补充</h2>
 <ul>
-<li>原始的transformer 37000多个单词，输入输出很多，每一步之后都归一化（normalization)
+<li>原始的transformer 37000多个单词，输入输出很多，每一步之后都归一化（normalization)<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701232230.png"
+                      class="" title="Pasted image 20250701232230.png"
+                >
 </li>
-<li>相似度上也可以做文章，也可以放缩 （scalaing ） dot product  研究发现 scaling 有助于长难句的编解码  
+<li>相似度上也可以做文章，也可以放缩 （scalaing ） dot product  研究发现 scaling 有助于长难句的编解码  <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/07/02/Transformer%E5%88%9D%E6%8E%A2/Pasted%20image%2020250701232523.png"
+                      class="" title="Pasted image 20250701232523.png"
+                >
 </li>
 </ul>
 </li>
